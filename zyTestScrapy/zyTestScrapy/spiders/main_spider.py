@@ -27,7 +27,11 @@ class TencentSpider(CrawlSpider):
     ]
     rules = [
         #http://scc.hnu.edu.cn/newsjob!getMore.action?Lb=1&p.currentPage=1
-        Rule(sle(allow=("/newsjob!getMore.action\?Lb=1&p.currentPage=\d{,4}")), follow=True, callback='parse_item')
+        #http://scc.hnu.edu.cn/newsjob!getMore.action?p.currentPage=1&Lb=1
+        #http://scc.hnu.edu.cn/newsjob!getMore.action?p.currentPage=2&Lb=1
+        #http://scc.hnu.edu.cn/newsjob!getMore.action?p.currentPage=3&Lb=1
+        # Rule(sle(allow=("/newsjob!getMore.action\?Lb=1&p.currentPage=\d{,4}")), follow=True, callback='parse_item')
+        Rule(sle(allow=("/newsjob!getMore.action\?p.currentPage=\d{,4}&Lb=1")), follow=True, callback='parse_item')
         #http://hr.tencent.com/position.php?&start=10#a
         # Rule(sle(allow=("/position.php\?&start=\d{,4}#a")), follow=True, callback='parse_item')
     ]

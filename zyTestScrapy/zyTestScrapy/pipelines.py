@@ -19,7 +19,7 @@ class ZytestscrapyPipeline(object):
     	# self.file.write(line)
     	print line
     	print '**********______________****************______________**********'
-    	print item
+    	# print item
         return item
 
     def spider_closed(self, spider):
