@@ -12,7 +12,7 @@ import codecs
 class ZytestscrapyPipeline(object):
 
 	# def __init__(self):
- #        self.file = codecs.open('Hu_Nan_University.json', 'w', encoding='utf-8')
+        # self.file = codecs.open('Hu_Nan_University.json', 'w', encoding='utf-8')
 
     def process_item(self, item, spider):
     	line = json.dumps(dict(item), ensure_ascii=False) + "\n"

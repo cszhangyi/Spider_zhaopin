@@ -12,6 +12,8 @@ from scrapy.utils.url import urljoin_rfc
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors.sgml import SgmlLinkExtractor as sle
 
+from scrapy.http import Request
+
 
 from zyTestScrapy.items import *
 from zyTestScrapy.misc.log import *
@@ -30,11 +32,13 @@ class TencentSpider(CrawlSpider):
         #http://scc.hnu.edu.cn/newsjob!getMore.action?p.currentPage=1&Lb=1
         #http://scc.hnu.edu.cn/newsjob!getMore.action?p.currentPage=2&Lb=1
         #http://scc.hnu.edu.cn/newsjob!getMore.action?p.currentPage=3&Lb=1
-        # Rule(sle(allow=("/newsjob!getMore.action\?Lb=1&p.currentPage=\d{,4}")), follow=True, callback='parse_item')
-        Rule(sle(allow=("/newsjob!getMore.action\?p.currentPage=\d{,4}&Lb=1")), follow=True, callback='parse_item')
+        Rule(sle(allow=("/newsjob!getMore.action\?Lb=1&p.currentPage=\d{,4}")), follow=True, callback='parse_item')
+        # Rule(sle(allow=("/newsjob!getMore.action\?p.currentPage=\d{,4}&Lb=1")), follow=True, callback='parse_item')
         #http://hr.tencent.com/position.php?&start=10#a
         # Rule(sle(allow=("/position.php\?&start=\d{,4}#a")), follow=True, callback='parse_item')
     ]
+    next_page = 1
+    spider_url = 'http://scc.hnu.edu.cn/newsjob!getMore.action?Lb=1&p.currentPage='
 
     def parse_item(self, response):
         items = []
@@ -68,11 +72,17 @@ class TencentSpider(CrawlSpider):
         #     items.append(item)
             #print repr(item).decode("unicode-escape") + '\n'
 
+            yield item
         info('parsed ' + str(response))
-        return items
+        
+        # return items
+        self.next_page = self.next_page + 1
+        next_link = self.spider_url + str(self.next_page)
+        print "-------------------------------"+next_link
+        yield Request(next_link,callback=self.parse_item)
 
 
-    def _process_request(self, request):
-        info('process ' + str(request))
-        return request
+    # def _process_request(self, request):
+    #     info('process ' + str(request))
+    #     return request
 

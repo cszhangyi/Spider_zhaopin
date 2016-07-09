@@ -46,9 +46,9 @@ NEWSPIDER_MODULE = 'zyTestScrapy.spiders'
 
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
+# SPIDER_MIDDLEWARES = {
 #    'zyTestScrapy.middlewares.MyCustomSpiderMiddleware': 543,
-#}
+# }
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
@@ -69,6 +69,8 @@ ITEM_PIPELINES = {
 }
 
 LOG_LEVEL = 'INFO'
+
+DEPTH_LIMIT = 100
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
@@ -89,3 +91,6 @@ LOG_LEVEL = 'INFO'
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+FEED_URI=u'/Users/Yale/Documents/HNUniversity.csv'
+FEED_FORMAT='CSV'
